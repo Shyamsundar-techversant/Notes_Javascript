@@ -1,0 +1,266 @@
+DATATYPES: Data types define the kind of values that variables can hold and how those values behave when operations are performed on them.
+
+JavaScript data types are broadly divided into two categories: primitive and non-primitive (or reference) types.
+
+ 1.Primitive Data Types  : 
+    Primitive types are immutable, meaning their values cannot be changed once created. They are stored directly in the 
+    memory location associated with the variable (on the stack). There are seven primitive types in JavaScript (as of ECMAScript 2023):
+
+    **Undefined : Represents a variable that has been declared but not assigned a value.
+        Only value: undefined.
+        Common in uninitialized variables or missing function return values.
+    Example:let x;
+    console.log(x); // undefined
+    console.log(typeof x); // "undefined"
+
+    Interview Tip: Be ready to explain the difference between undefined and undeclared variables (the latter causes a ReferenceError).
+
+
+    **Null : Represents the intentional absence of any value.
+        Only value: null.
+        Used to explicitly indicate "no value" or "empty".
+    
+    Example:
+        let y = null;
+        console.log(y); // null
+        console.log(typeof y); // "object" (historical bug in JavaScript)
+
+        Interview Tip: Discuss the typeof null quirk and how null === undefined is false, but null == undefined is true due to type coercion.
+
+
+    **Boolean : Represents a logical value: true or false.Used in conditionals, logical operations, and flags.
+    Example:
+    let isActive = true;
+    console.log(isActive); // true
+    console.log(typeof isActive); // "boolean"
+
+    Interview Tip: Explain how non-boolean values are coerced to true or false in conditionals (e.g., falsy values: 0, "", null, undefined, NaN, false).
+
+
+    **Number : Represents both integer and floating-point numbers (64-bit floating-point per IEEE 754).Range: Approximately ±1.79E308.
+        Special values: NaN, Infinity, -Infinity.
+    Example:
+    let num = 42;
+    let float = 3.14;
+    console.log(typeof num); // "number"
+    console.log(1 / 0); // Infinity
+    console.log(Number("abc")); // NaN
+
+    Interview Tip: Discuss NaN (not equal to itself, check with isNaN() or Number.isNaN()), precision issues 
+        with floating-point arithmetic (e.g., 0.1 + 0.2 !== 0.3), and the Number.MAX_SAFE_INTEGER limit (2^53 - 1).
+
+
+    **BigInt : Represents integers with arbitrary precision (introduced in ECMAScript 2020).Used for numbers beyond Number.MAX_SAFE_INTEGER.
+        Created by appending n to an integer or using the BigInt() constructor.
+    Example:
+    let bigNum = 12345678901234567890n;
+    console.log(typeof bigNum); // "bigint"
+    console.log(bigNum + 1n); // 12345678901234567891n
+
+    Interview Tip: Highlight that BigInt cannot be mixed with Number in operations without explicit conversion, and discuss use cases like cryptographic calculations or large IDs.
+
+
+    **String : Represents a sequence of characters (UTF-16 code units), enclosed in single quotes ('), double quotes ("), or backticks (` for template literals).
+        Immutable, but methods like slice() or toUpperCase() return new strings.
+    Example:
+    let str = "Hello";
+    let template = `Hi, ${str}!`;
+    console.log(template); // "Hi, Hello!"
+    console.log(typeof str); // "string"
+
+    Interview Tip: Explain string immutability (e.g., str[0] = "h" doesn’t work), template literals for dynamic strings, and common methods like charAt(), includes(), or split().
+
+
+    **Symbol : Represents a unique, immutable identifier (introduced in ECMAScript 2015).Often used as unique object property keys to avoid naming collisions.
+        Created with Symbol() or Symbol.for().
+    Example:
+    let sym1 = Symbol("id");
+    let sym2 = Symbol("id");
+    console.log(sym1 === sym2); // false (unique)
+    console.log(typeof sym1); // "symbol"
+
+    Interview Tip: Discuss use cases like private object properties, Symbol.iterator for iterables, and how Symbol.for() creates shared symbols via a global registry.
+
+
+    2. Non-Primitive (Reference) Data Types
+        Non-primitive types are mutable and stored as references in memory (on the heap). The variable holds a reference to the memory location, 
+        not the value itself. The primary non-primitive type is:
+
+        **Object:Represents a collection of key-value pairs (properties and methods).Includes subtypes like plain objects, arrays, functions, dates, and regular expressions.
+        Example:
+        let obj = { name: "Alice", age: 25 };
+        let arr = [1, 2, 3];
+        let func = function() { return "Hi"; };
+        console.log(typeof obj); // "object"
+        console.log(typeof arr); // "object"
+        console.log(typeof func); // "function"
+
+    Key Characteristics:
+
+    Objects are passed by reference, so modifying a referenced object affects all variables pointing to it.
+    Example:
+    let a = { x: 1 };
+    let b = a;
+    b.x = 2;
+    console.log(a.x); // 2 (same object reference)
+
+
+
+        >>Subtypes:
+
+            --Array: Ordered list of values, e.g., [1, "a", true].
+            --Function: Callable objects, e.g., function sum(a, b) { return a + b; }.
+            --Date, RegExp, Map, Set, etc., are specialized objects.
+
+
+    Interview Tip: Be prepared to explain pass-by-reference vs. pass-by-value, shallow vs. 
+        deep copying (e.g., Object.assign() or JSON.parse(JSON.stringify())), and prototype-based inheritance.
+
+
+
+    --Type Coercion : JavaScript is a loosely typed language, meaning it automatically converts (coerces) types during operations. This is a common interview topic:
+
+        Implicit Coercion:
+
+        Occurs in operations like ==, +, or conditionals.
+        Example:
+        console.log("5" + 3); // "53" (string concatenation)
+        console.log("5" - 3); // 2 (numeric subtraction)
+        console.log("5" == 5); // true (loose equality coerces types)
+        console.log("5" === 5); // false (strict equality checks type and value)
+
+
+
+        Explicit Coercion : Using functions like Number(), String(), or Boolean().
+        Example:
+        console.log(Number("42")); // 42
+        console.log(String(123)); // "123"
+
+        Interview Tip: Explain the difference between == (loose equality with coercion) and === (strict equality without coercion), 
+            and know the coercion rules for common operations (e.g., [] + {} yields "[object Object]").
+
+    --Memory Management
+
+        Primitive Types: Stored on the stack, copied by value. Assigning a primitive to a new variable creates a copy.
+
+        Example:
+        let a = 10;
+        let b = a;
+        b = 20;
+        console.log(a); // 10 (unchanged)
+
+
+
+    Reference Types: Stored on the heap, copied by reference. Assigning an object to a new variable points to the same memory location.
+
+    Example:
+    let a = { value: 10 };
+    let b = a;
+    b.value = 20;
+    console.log(a.value); // 20 (same reference)
+
+
+
+    Interview Tip: Discuss garbage collection (mark-and-sweep algorithm) and how circular references in objects can cause memory leaks in older browsers.
+
+    Common Interview Questions
+
+    ?.What’s the difference between null and undefined?
+
+    undefined: Variable declared but not assigned, or missing function return.
+    null: Explicitly set to indicate no value.
+    Key difference: null is intentional, undefined is often unintentional.
+
+
+    ?.Why does typeof null return "object"?
+
+    A historical bug from early JavaScript implementations, never fixed for backward compatibility.
+
+    ?.What are falsy values?
+
+    Values that coerce to false in a boolean context: false, 0, -0, 0n, "", null, undefined, NaN.
+    Example:
+    if (!"") console.log("Falsy"); // Prints "Falsy"
+
+
+
+    ?.How do you check for NaN?
+
+    Use isNaN() for general checks or Number.isNaN() for stricter checks (doesn’t coerce non-numbers).
+    Example:
+    console.log(isNaN("abc")); // true (coerces to NaN)
+    console.log(Number.isNaN("abc")); // false (no coercion)
+
+
+
+    ?.What’s the difference between primitive and reference types?
+
+    Primitives are immutable, copied by value, stored on the stack.
+    Reference types are mutable, copied by reference, stored on the heap.
+
+
+    ?.How do you create a deep copy of an object?
+
+    Use JSON.parse(JSON.stringify(obj)) for simple objects (no functions or special objects like Date).
+    Use libraries like Lodash (_.cloneDeep) for complex cases.
+    Example:
+    let obj = { a: { b: 1 } };
+    let copy = JSON.parse(JSON.stringify(obj));
+    copy.a.b = 2;
+    console.log(obj.a.b); // 1 (original unchanged)
+
+
+
+
+    Advanced Topics (for Senior-Level Interviews)
+
+    ?.Type Checking:
+
+    Use typeof for primitives, but it’s limited for objects (e.g., typeof [] is "object").
+    Use instanceof for object types (e.g., [] instanceof Array).
+    Use Object.prototype.toString.call() for precise type checking:
+    console.log(Object.prototype.toString.call([])); // "[object Array]"
+
+
+
+    Symbol Use Cases:
+
+    Creating unique property keys, implementing iterators, or defining well-known symbols like Symbol.toStringTag.
+
+
+    BigInt vs. Number:
+
+    When to use BigInt (e.g., for large integers in financial calculations) and its limitations (e.g., no floating-point support).
+
+
+    Prototype Chain:
+
+    Objects inherit properties via the prototype chain, accessible via __proto__ or Object.getPrototypeOf().
+
+
+
+    Example Code for Interviews
+    // Demonstrate type coercion and checking
+    let x = "10";
+    let y = 5;
+    console.log(x + y); // "105" (string concatenation)
+    console.log(Number(x) + y); // 15 (explicit coercion)
+    console.log(typeof null); // "object"
+    console.log([] instanceof Array); // true
+    console.log(Object.prototype.toString.call(new Date())); // "[object Date]"
+
+    // Symbol as unique property key
+    const key = Symbol("key");
+    let obj = { [key]: "secret" };
+    console.log(obj[key]); // "secret"
+    console.log(Object.keys(obj)); // [] (Symbols not enumerable)
+    Key Takeaways for Interviews
+
+    Understand the distinction between primitive and reference types, including immutability and memory storage.
+    Master type coercion rules and the difference between == and ===.
+    Be familiar with edge cases (e.g., typeof null, NaN behavior, Symbol uniqueness).
+    Be ready to write code snippets to demonstrate type usage, coercion, or copying.
+    Highlight modern JavaScript practices (e.g., prefer const/let over var, use Number.isNaN() for strict checks).
+
+    If you’re preparing for an interview and want to dive deeper into specific data type scenarios, 
+    type coercion edge cases, or coding challenges, let me know, and I can tailor examples or explanations!
