@@ -1,0 +1,23 @@
+DEFINITION :
+    A JavaScript engine is a program or interpreter that executes JavaScript code. 
+    It’s a critical component of web browsers and environments like Node.js, enabling JavaScript to run on a user’s device or server. 
+    Essentially, it takes human-readable JavaScript code, processes it, and turns it into machine-executable instructions.
+
+WORKING : 
+    1.Parsing: 
+        When the engine receives JavaScript code, it first parses it into an Abstract Syntax Tree (AST). 
+        This is a tree-like structure that represents the code’s syntax, breaking it down into tokens (like variables, operators, or keywords).
+        For example, a line like let x = 5 + 3; is tokenized and structured into an AST that the engine can understand.
+
+    2.Compilation : 
+        Modern JavaScript engines, like Google’s V8 (used in Chrome and Node.js), use a Just-In-Time (JIT) compilation approach. 
+        Instead of purely interpreting the code line by line, the engine compiles the AST into machine code for faster execution. 
+        This involves:
+            *Interpreting: Initially, the code might be interpreted to start execution quickly.
+            *Optimizing: The engine monitors the code as it runs. If certain parts (like loops or functions) are used repeatedly, 
+                it optimizes them by compiling them into highly efficient machine code. For example, V8’s TurboFan compiler optimizes hot code paths for better performance.
+
+    3.Execution: 
+        The compiled machine code is executed in the engine’s runtime environment. 
+        The engine manages a call stack to keep track of function calls and a heap for memory allocation (like storing objects and variables). 
+        It also interacts with the environment (e.g., the browser’s DOM or Node.js APIs) via bindings.

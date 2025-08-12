@@ -1,0 +1,1 @@
+DATATYPES: Data types define the kind of values that variables can hold and how those values behave when operations are performed on them.

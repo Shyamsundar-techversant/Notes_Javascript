@@ -1,0 +1,30 @@
+DEFINITION
+    A variable is a named storage location used to hold data that can be referenced and manipulated throughout a program.
+
+1. Variable Declaration
+    JavaScript provides three primary keywords for declaring variables: var, let, and const. Each has distinct characteristics:
+
+    . var : 
+        *Introduced in ECMAScript 1, it’s the oldest way to declare variables.
+        *Function-scoped: Variables declared with var are scoped to the enclosing function or, if outside a function, to the global scope.
+        *Hoisting: var declarations are hoisted to the top of their scope and initialized with undefined.
+        *Re-declarable and re-assignable: We can re-declare and re-assign var variables within the same scope without errors.
+    . let : 
+        *Introduced in ECMAScript 6 (ES6), let provides block-scoping.
+        *Block-scoped: Variables are confined to the block (e.g., {}) in which they are defined (e.g., loops, conditionals).
+        *Hoisting: let declarations are hoisted but not initialized, 
+            leading to a Temporal Dead Zone (TDZ) where accessing the variable before declaration throws a ReferenceError.
+        *Re-assignable but not re-declarable: You can update the value but cannot re-declare a let variable in the same scope.
+    . const : 
+        *Also introduced in ES6, const is block-scoped like let.
+        *Immutable binding: The variable cannot be re-assigned or re-declared after initialization. However, the value itself (e.g., an object or array) can be mutated.
+        *Must be initialized: const requires an initial value at declaration.
+
+2.Scope
+    Scope determines where a variable is accessible in the code. JavaScript has three main types of scope:
+    . Global Scope: Variables declared outside any function or block are in the global scope and accessible everywhere. 
+        With var, global variables become properties of the global object (window in browsers, global in Node.js).
+    . Function Scope: Variables declared with var inside a function are scoped to that function and not accessible outside.
+    . Block Scope: Variables declared with let or const inside a block ({}) are only accessible within that block.
+    
+3.
